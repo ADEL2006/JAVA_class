@@ -10,10 +10,10 @@ class students{
     int kor;
     int eng;
     int math;
-    public int getTotal(int kor, int eng, int math){
+    public int getTotal(){
         return kor+eng+math;
     }
-    public float getAverage(int kor, int eng, int math){
-        return (kor+eng+math)/2;
+    public float getAverage(){
+        return (int)(getTotal() / 3f * 10 + 0.5f) / 10f;
     }
 }
