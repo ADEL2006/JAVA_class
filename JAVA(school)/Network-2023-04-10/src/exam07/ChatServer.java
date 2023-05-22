@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 public class ChatServer {
     ServerSocket serverSocket;
     ExecutorService threadPool = Executors.newFixedThreadPool(100);
-    Map<String, SocketClient> chatRoom = Collection.synchronizedMap(new HashMap<>());
+    Map<String, SocketClient> chatRoom = Collections.synchronizedMap(new HashMap<>());
 
     public void start() throws IOException{
         serverSocket = new ServerSocket(50001);
@@ -31,14 +31,14 @@ public class ChatServer {
         thread.start();
     }
     public void addSocketClient(SocketClient socketClient) {
-        String key = socketClient.chatName+"@"+socketClient.clientilp;
+        String key = socketClient.chatName+"@"+socketClient.clientlp;
         chatRoom.put(key,socketClient);
         System.out.println("입장: "+key);
         System.out.println("현재 채팅자 수: "+chatRoom.size()+"\n");
     }
 
-    public void removeSocket(SocketClient socketClient){
-        String key = socketClient.chatName+"@"+socketClient.clientilp;
+    public void removeSocketClient(SocketClient socketClient){
+        String key = socketClient.chatName+"@"+socketClient.clientlp;
         chatRoom.remove(key);
         System.out.println("나감: "+key);
         System.out.println("현재 채팅자 수: "+chatRoom.size()+"\n");
@@ -46,7 +46,7 @@ public class ChatServer {
 
     public void sendToAll(SocketClient sender, String message){
         JSONObject root = new JSONObject();
-        root.put("clientlp", sender.clientilp);
+        root.put("clientlp", sender.clientlp);
         root.put("chatName", sender.chatName);
         root.put("message", message);
         String json = root.toString();
@@ -65,7 +65,7 @@ public class ChatServer {
         } catch (Exception e) {}
     }
 
-    public static void main(string[] args){
+    public static void main(String[] args){
         try{
             ChatServer chatServer = new ChatServer();
             chatServer.start();

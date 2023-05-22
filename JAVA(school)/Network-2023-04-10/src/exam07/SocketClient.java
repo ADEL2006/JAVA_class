@@ -36,14 +36,15 @@ public class SocketClient {
         }
     }
 
+
     private void receive() {
         chatServer.threadPool.execute(() -> {
             try {
                 while(true){
-                    String receiveJson = dis.readUTF();
 
-                    JSONObject jsonObject = new JSONObject(receiveJson);
-                    String receivejson = dis.readUTF();
+
+
+                    String receiveJson = dis.readUTF();
 
                     JSONObject jsonObject = new JSONObject(receiveJson);
                     String command = jsonObject.getString("command");
@@ -58,8 +59,11 @@ public class SocketClient {
                             String message = jsonObject.getString("data");
                             chatServer.sendToAll(this,message);
                             break;
+
                     }
+
                 }
+
             }catch (IOException e){
                 chatServer.sendToAll(this, "나가셨습니다.");
                 chatServer.removeSocketClient(this);
