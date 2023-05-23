@@ -27,7 +27,7 @@ public class SelectionSort {
             swap(unsorted, minIndex, i);
         }
 
-        return null;
+        return unsorted;
     }
 
 
