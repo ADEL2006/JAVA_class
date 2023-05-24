@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class SortingExecutor {
-    private static final int SAMPLE_DATA_SIZE = 10000;
+    private static final int DATA_SIZE = 10000;
 
     private final SelectionSort selectionSort;
 
@@ -13,7 +13,7 @@ public class SortingExecutor {
     }
 
     public void makeSampleData() {
-        this.sampleData = new int[SAMPLE_DATA_SIZE];
+        this.sampleData = new int[DATA_SIZE];
         Random random = new Random();
 
         for (int i = 0 ; i < this.sampleData.length ; i++) {
