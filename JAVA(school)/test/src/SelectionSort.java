@@ -3,23 +3,23 @@ public class SelectionSort {
         return this.doSelectionSorting(unsorted);
     }
 
-    public void swap(int[] arr, int i, int j) {
+    public void swapArr(int[] arr, int i, int j) {
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
     }
 
-    private int[] doSelectionSorting(int[] unsorted) {
-        int n = unsorted.length;
+    private int[] doSelectionSorting(int[] unsorted_arr) {
+        int n = unsorted_arr.length;
         for (int i = 0; i < n - 1; i++) {
             int minIndex = i;
             for (int j = i + 1; j < n; j++) {
-                if (unsorted[j] < unsorted[minIndex]) {
+                if (unsorted_arr[j] < unsorted_arr[minIndex]) {
                     minIndex = j;
                 }
             }
-            swap(unsorted, minIndex, i);
+            swapArr(unsorted_arr, minIndex, i);
         }
-        return unsorted;
+        return unsorted_arr;
     }
 }
