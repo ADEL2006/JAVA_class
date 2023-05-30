@@ -10,76 +10,82 @@ import java.net.Socket;
 import java.net.SocketAddress;
 
 public class SocketClient {
-
+    //필드
     ChatServer chatServer;
     Socket socket;
     DataInputStream dis;
     DataOutputStream dos;
-    String clientlp;
+    String clientIp;
     String chatName;
 
-    // 생성자
-    public SocketClient(ChatServer chatServer, Socket socket){
+    //생성자
+    public SocketClient(ChatServer chatServer , Socket socket) {
 
         try{
             this.chatServer = chatServer;
             this.socket = socket;
-            this.dis = new DataInputStream(socket.getInputStream());
-            this.dos = new DataOutputStream(socket.getOutputStream());
+            this.dis = new DataInputStream(socket.getInputStream()); //**출제예정**
+            this.dos = new DataOutputStream(socket.getOutputStream()); //**출제예정**
 
             InetSocketAddress isa = (InetSocketAddress) socket.getRemoteSocketAddress();
-            this.clientlp = isa.getHostName();
-            receive();
+            this.clientIp = isa.getHostName();
+            receive(); //**출제예정**
 
-        }catch (IOException e){
+        }catch(IOException e){
 
         }
     }
 
-
-    private void receive() {
-        chatServer.threadPool.execute(() -> {
+    //메소드: JSON 받기
+    public void receive() {
+        chatServer.threadPool.execute(()->{ //**출제예정**
             try {
-                while(true){
+                while (true)  {
 
-
-
+                    //{"command":"incoming","data":"chatName"}
+                    //{"command":"message","data":"xxxx"}
                     String receiveJson = dis.readUTF();
 
                     JSONObject jsonObject = new JSONObject(receiveJson);
                     String command = jsonObject.getString("command");
 
-                    switch (command){
+                    switch (command) {
                         case "incoming":
                             this.chatName = jsonObject.getString("data");
-                            chatServer.sendToAll(this, "들어오셨습니다.");
-                            chatServer.addSocketClient(this);
+                            chatServer.sendToAll(this,"들어오셨습니다");
+                            chatServer.addSocketClient(this); //**출제예정**
                             break;
                         case "message":
                             String message = jsonObject.getString("data");
-                            chatServer.sendToAll(this,message);
+                            chatServer.sendToAll(this,message); //**출제예정**
                             break;
-
                     }
 
                 }
 
-            }catch (IOException e){
-                chatServer.sendToAll(this, "나가셨습니다.");
-                chatServer.removeSocketClient(this);
+            }catch (IOException e) {
+                chatServer.sendToAll(this,"나가셨습니다.");
+                chatServer.removeSocketClient(this); //**출제예정**
+
             }
         });
     }
 
-    public void send(String json){
+    //메소드: JSON 보내기
+    public void send(String json) {
+
         try{
-            dos.writeUTF(json);
-            dos.flush();
-        }catch (IOException e){}
+            dos.writeUTF(json); //**출제예정**
+            dos.flush(); //**출제예정**
+        }catch (IOException e) {
+        }
     }
-    public void close(){
+
+    public void close() {
         try{
-            socket.close();
-        }catch (IOException e){}
+            socket.close(); 
+
+        }catch (IOException e){
+        }
     }
 }

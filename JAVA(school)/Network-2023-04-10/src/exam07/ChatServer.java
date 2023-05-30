@@ -1,7 +1,5 @@
 package exam07;
 
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -10,79 +8,105 @@ import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ChatServer {
-    ServerSocket serverSocket;
-    ExecutorService threadPool = Executors.newFixedThreadPool(100);
-    Map<String, SocketClient> chatRoom = Collections.synchronizedMap(new HashMap<>());
+import org.json.JSONObject;
 
-    public void start() throws IOException{
+public class ChatServer {
+
+    //필드
+    ServerSocket serverSocket;
+    ExecutorService threadPool = Executors.newFixedThreadPool(100); 
+    Map<String, SocketClient> chatRoom = Collections.synchronizedMap(new HashMap<>()); 
+
+
+    //메소드: 서버 시작
+    public void start() throws IOException {
+
         serverSocket = new ServerSocket(50001);
         System.out.println("[서버] 시작 됨");
 
-        Thread thread = new Thread(() -> {
+        Thread thread = new Thread(() -> { //**출제예정**
             try {
-                while(true){
-                    Socket socket = serverSocket.accept();
-                    SocketClient sc = new SocketClient(ChatServer.this, socket);
+                while (true) {
+                    Socket socket = serverSocket.accept();  //**출제예정**
+                    SocketClient sc = new SocketClient(ChatServer.this, socket); 
                 }
-            }catch (Exception e){
+
+            } catch (Exception e) {
             }
         });
-        thread.start();
+        thread.start(); //**출제예정**
     }
+    //메소드 : 클라이언트 연결 시 SocketClient  생성 및 추가
     public void addSocketClient(SocketClient socketClient) {
-        String key = socketClient.chatName+"@"+socketClient.clientlp;
+        String key = socketClient.chatName+"@"+socketClient.clientIp;
         chatRoom.put(key,socketClient);
-        System.out.println("입장: "+key);
-        System.out.println("현재 채팅자 수: "+chatRoom.size()+"\n");
+        System.out.println("입장: "+key); //**출제예정**
+        System.out.println("현재 채팅자 수:"+chatRoom.size()+"\n");
     }
 
-    public void removeSocketClient(SocketClient socketClient){
-        String key = socketClient.chatName+"@"+socketClient.clientlp;
-        chatRoom.remove(key);
+    //메소드: 클라이언트 연결 종료 시 SocketClient  제거
+    public void removeSocketClient(SocketClient socketClient) {
+        String key = socketClient.chatName+"@"+socketClient.clientIp;
+        chatRoom.remove(key); //**출제예정**
         System.out.println("나감: "+key);
-        System.out.println("현재 채팅자 수: "+chatRoom.size()+"\n");
+        System.out.println("현재 채팅자 수:"+chatRoom.size()+"\n");
     }
 
-    public void sendToAll(SocketClient sender, String message){
+    //메소드: 모든 클라이언트에게 메시지 보냄
+    public void sendToAll(SocketClient sender,String message) {
         JSONObject root = new JSONObject();
-        root.put("clientlp", sender.clientlp);
-        root.put("chatName", sender.chatName);
-        root.put("message", message);
+        root.put("clientIp",sender.clientIp);
+        root.put("chatName",sender.chatName);
+        root.put("message",message);
         String json = root.toString();
 
         Collection<SocketClient> socketClients = chatRoom.values();
-        for (SocketClient sc:socketClients){
-            if(sc == sender) continue;
+        for(SocketClient sc:socketClients) {
+            if(sc == sender) continue; //**출제예정**
             sc.send(json);
         }
+
     }
+
+    //메소드: 서버 종료
     public void stop() {
-        try {
+        try{
             serverSocket.close();
             threadPool.shutdownNow();
-            chatRoom.values().stream().forEach(sc -> sc.close());
-        } catch (Exception e) {}
+            chatRoom.values().stream().forEach(sc->sc.close()); //**출제예정**
+            System.out.println("[서버] 종료됨");
+
+        }catch (IOException e){}
+
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
+
         try{
             ChatServer chatServer = new ChatServer();
-            chatServer.start();
+            chatServer.start(); //**출제예정**
 
-            System.out.println("----------------------------");
+            System.out.println("-------------------------------------------");
             System.out.println("서버를 종료하려면 q를 입력하고 Enter");
-            System.out.println("----------------------------");
+            System.out.println("-------------------------------------------");
 
+            //키보드 입력
             Scanner scanner = new Scanner(System.in);
 
-            while(true){
+            while (true) {
                 String key = scanner.nextLine();
                 if(key.equals("q")) break;
+
             }
-            scanner.close();
-        }catch (IOException e){
+            scanner.close(); //**출제예정**
+
+            //TCP 서버 종료
+            chatServer.stop(); //**출제예정**
+
+        }catch (IOException e) {
             System.out.println("[서버]"+e.getMessage());
+
         }
+
     }
 }
