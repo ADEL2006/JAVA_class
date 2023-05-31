@@ -14,14 +14,12 @@ public class Main {
             System.out.print((i+1)+"번째 숫자 입력: ");
             num[i] = Integer.parseInt(bf.readLine());
 
-            if (colNum(num[i]) && notSameNum(num[i])) {
-                System.out.println(num[i]);
-                i++;
-            }else {System.out.println("다시하셈 ㅋㅋㄹㅃㅃ");}
+            System.out.println(colNum(num[i]) && notSameNum(num[i]) ? num[i++] : "다시하셈 ㅋㅋㄹㅃㅃ");
 
             if (i == 3) {break;}
         }
     }
+
     static boolean colNum(int cn) {
         if (0 < cn && cn < 1000) {
             return true;
