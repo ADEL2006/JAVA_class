@@ -38,7 +38,7 @@ public class SocketClient {
 
     //메소드: JSON 받기
     public void receive() {
-        chatServer.threadPool.execute(()->{ //**출제예정**
+        chatServer.threadPool.execute(() -> { //**출제예정**
             try {
                 while (true)  {
 
@@ -89,4 +89,3 @@ public class SocketClient {
         }
     }
 }
-// 9
