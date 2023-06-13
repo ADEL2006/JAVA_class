@@ -1,3 +1,5 @@
+package Exam01;
+
 public class Exam_42 {
     public static void main(String[] args) {
         int sum = 0;

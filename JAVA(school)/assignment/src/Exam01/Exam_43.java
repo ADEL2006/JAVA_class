@@ -1,3 +1,5 @@
+package Exam01;
+
 import java.util.Scanner;
 public class Exam_43 {
     public static void main(String[] args) {
