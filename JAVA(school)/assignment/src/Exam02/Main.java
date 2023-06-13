@@ -47,6 +47,7 @@ public class Main {
             return false;
         }
         else if(_menu.equals("9")){
+            System.out.println("프로그램이 종료됩니다.");
             return true;
         }
         return false;
