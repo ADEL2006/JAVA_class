@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 public class Main_HashMap {
     static Main_HashMap _main;
@@ -65,8 +67,16 @@ public class Main_HashMap {
     private void printInfo() {
         System.out.println("저장된 정보 출력");
 
-        for (PhotoCard_Class card : mMap_Values.values()) {
-            System.out.println("이름: " + card.name + " / 가격: " + card.price);
+        // for (PhotoCard_Class card : mMap_Values.values()) {
+        //     System.out.println("이름: " + card.name + " / 가격: " + card.price);
+        // }
+
+        Set<String> _tempkey = mMap_Values.keySet();
+        Iterator _it = _tempkey.iterator();
+
+        while(_it.hasNext()){
+            PhotoCard_Class _temp = mMap_Values.get(_it.next());
+            System.out.println("이름: " + _temp.name + " / 가격: " + _temp.price);
         }
     }
 
@@ -79,6 +89,16 @@ public class Main_HashMap {
             System.out.println("이름: " + card.name + " / 가격: " + card.price);
         } else {
             System.out.println("입력한 이름이 없습니다.");
+        }
+
+        Set<String> _tempKey = mMap_Values.keySet();
+        Iterator _it = _tempKey.iterator();
+        while(_it.hasNext()) {
+            PhotoCard_Class _temp = mMap_Values.get(_it.next());
+            if (_temp.name.contains(_name)) {
+                System.out.println("이름: " + _temp.name + " / 가격: " + _temp.price);
+                isSearch = true;
+            }
         }
     }
 
