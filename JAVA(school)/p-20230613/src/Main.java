@@ -28,6 +28,7 @@ public class Main {
         System.out.println("1. 입력");
         System.out.println("2. 출력");
         System.out.println("3. 검색");
+        System.out.println("4. 삭제");
         System.out.println("9. 종료");
         System.out.println("메뉴를 선택하세요: ");
         String _menu = in.readLine();
@@ -43,6 +44,10 @@ public class Main {
         }
         else if(_menu.equals("3")){
             searchName();
+            return false;
+        }
+        else if(_menu.equals("4")){
+            deleteName();
             return false;
         }
         else if(_menu.equals("9")){
@@ -94,21 +99,22 @@ public class Main {
         }
     }
 
-    private void deleteName() throws  IOException{
+    private void deleteName() throws IOException {
         System.out.println("삭제할 이름 입력: ");
         String _name = in.readLine();
 
         boolean isSearch = false;
 
         for (int _pos = 0; _pos < mArray.length; _pos++) {
-            if(mArray[_pos] != null) {
-                if(mArray[_pos].name.contains(_name)) {
-                    mArray.remove(_name);
+            if (mArray[_pos] != null) {
+                if (mArray[_pos].name.contains(_name)) {
+                    mArray[_pos] = null;
                     isSearch = true;
+                    System.out.println("이름 " + _name + "이/가 삭제되었습니다.");
                 }
             }
         }
-        if(isSearch == false) {
+        if (!isSearch) {
             System.out.println("입력한 이름이 없습니다.");
         }
     }
