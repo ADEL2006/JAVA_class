@@ -1,28 +1,31 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.Iterator;
 
-public class Main {
-    static Main _main;
+public class Main_Set {
+    static Main_Set _main;
     BufferedReader in;
-    PhotoCard_Class[] mArray = new PhotoCard_Class[100];
+    HashSet<PhotoCard_Class> mArray = new HashSet<>();
 
     public static void main(String[] args) throws IOException {
-        _main = new Main();
+        _main = new Main_Set();
         _main.processMethod();
     }
 
     private void processMethod() throws IOException {
         init_Value();
         boolean isFinish = false;
-        while(isFinish == false) {
+        while (isFinish == false) {
             isFinish = printMessage();
-
         }
     }
+
     private void init_Value() {
         in = new BufferedReader(new InputStreamReader(System.in));
     }
+
     private boolean printMessage() throws IOException {
         System.out.println("1. 입력");
         System.out.println("2. 출력");
@@ -31,24 +34,21 @@ public class Main {
         System.out.println("메뉴를 선택하세요: ");
         String _menu = in.readLine();
 
-
-        if(_menu.equals("1")){
+        if (_menu.equals("1")) {
             insertMethod();
             return false;
-        }
-        else if(_menu.equals("2")){
+        } else if (_menu.equals("2")) {
             printInfo();
             return false;
-        }
-        else if(_menu.equals("3")){
+        } else if (_menu.equals("3")) {
             searchName();
             return false;
-        }
-        else if(_menu.equals("9")){
+        } else if (_menu.equals("9")) {
             return true;
         }
         return false;
     }
+
     private void insertMethod() throws IOException {
         PhotoCard_Class _temp = new PhotoCard_Class();
         System.out.println("이름 입력: ");
@@ -56,58 +56,47 @@ public class Main {
         System.out.println("가격 입력: ");
         _temp.price = Integer.parseInt(in.readLine());
 
-        for (int _pos = 0; _pos < mArray.length; _pos++) {
-            if(mArray[_pos] == null) {
-                mArray[_pos] = _temp;
-                break;
-            }
-        }
+        mArray.add(_temp);
     }
 
     private void printInfo() {
         System.out.println("저장된 정보 출력");
 
-        for (int _pos = 0; _pos < mArray.length; _pos++) {
-            if(mArray[_pos] != null) {
-                System.out.println("이름: " + mArray[_pos].name + " / 가격: " + mArray[_pos].price);
-            }
+        // for (PhotoCard_Class card : mArray) {
+        //     System.out.println("이름: " + card.name + " / 가격: " + card.price);
+        // }
+
+        Iterator _it = mArray.iterator();
+        while (_it.hasNext()) {
+            PhotoCard_Class _temp = (PhotoCard_Class) _it.next();
+            System.out.println("이름: " + _temp.name + " / 가격: " + _temp.price);
         }
+
     }
 
-    private void searchName() throws IOException{
+    private void searchName() throws IOException {
         System.out.println("검색할 이름 입력: ");
         String _name = in.readLine();
 
         boolean isSearch = false;
 
-        for (int _pos = 0; _pos < mArray.length; _pos++) {
-            if(mArray[_pos] != null) {
-                if(mArray[_pos].name.contains(_name)) {
-                    System.out.println("이름: " + mArray[_pos].name + " / 가격: " + mArray[_pos].price);
-                    isSearch = true;
-                }
+        // for (PhotoCard_Class card : mArray) {
+        //     if (card.name.contains(_name)) {
+        //         System.out.println("이름: " + card.name + " / 가격: " + card.price);
+        //         isSearch = true;
+        //     }
+        // }
+
+        Iterator _it = mArray.iterator();
+        while (_it.hasNext()) {
+            PhotoCard_Class _temp = (PhotoCard_Class) _it.next();
+            if (_temp.name.contains(_name)) {
+                System.out.println("이름: " + _temp.name + " / 가격: " + _temp.price);
+                isSearch = true;
             }
         }
-        if(isSearch == false) {
-            System.out.println("입력한 이름이 없습니다.");
-        }
-    }
 
-    private void deleteName() throws  IOException{
-        System.out.println("삭제할 이름 입력: ");
-        String _name = in.readLine();
-
-        boolean isSearch = false;
-
-        for (int _pos = 0; _pos < mArray.length; _pos++) {
-            if(mArray[_pos] != null) {
-                if(mArray[_pos].name.contains(_name)) {
-
-                    isSearch = true;
-                }
-            }
-        }
-        if(isSearch == false) {
+        if (isSearch == false) {
             System.out.println("입력한 이름이 없습니다.");
         }
     }

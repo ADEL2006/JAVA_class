@@ -2,13 +2,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Main {
-    static Main _main;
+public class Main_HashMap {
+    static Main_HashMap _main;
     BufferedReader in;
     PhotoCard_Class[] mArray = new PhotoCard_Class[100];
 
     public static void main(String[] args) throws IOException {
-        _main = new Main();
+        _main = new Main_HashMap();
         _main.processMethod();
     }
 
@@ -102,7 +102,7 @@ public class Main {
         for (int _pos = 0; _pos < mArray.length; _pos++) {
             if(mArray[_pos] != null) {
                 if(mArray[_pos].name.contains(_name)) {
-
+                    
                     isSearch = true;
                 }
             }
