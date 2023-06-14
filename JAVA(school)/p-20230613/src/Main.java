@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Main {
     static Main _main;
@@ -102,7 +103,7 @@ public class Main {
         for (int _pos = 0; _pos < mArray.length; _pos++) {
             if(mArray[_pos] != null) {
                 if(mArray[_pos].name.contains(_name)) {
-
+                    mArray.remove(_name);
                     isSearch = true;
                 }
             }
