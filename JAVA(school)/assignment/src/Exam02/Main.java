@@ -122,7 +122,7 @@ public class Main {
             System.out.println("입력한 이름이 없습니다.");
         } else {
             if (count == 1) {
-                _it = mArray.iterator(); // iterator를 다시 초기화해야 합니다.
+                _it = mArray.iterator();
                 while (_it.hasNext()) {
                     PhoneNumber_Class _temp = _it.next();
                     if (_temp.name.contains(_name)) {
@@ -133,7 +133,7 @@ public class Main {
                     }
                 }
             } else {
-                _it = mArray.iterator(); // iterator를 다시 초기화해야 합니다.
+                _it = mArray.iterator();
                 int select = 1;
                 System.out.println("입력하신 이름이 2개 이상 존재합니다.\n");
                 while (_it.hasNext()) {
@@ -147,7 +147,7 @@ public class Main {
                 System.out.print("\n삭제하실 번호를 선택하세요: ");
                 int choose = Integer.parseInt(in.readLine());
 
-                _it = mArray.iterator(); // iterator를 다시 초기화해야 합니다.
+                _it = mArray.iterator();
                 select = 1;
                 while (_it.hasNext()) {
                     PhoneNumber_Class _temp = _it.next();
