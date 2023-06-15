@@ -11,7 +11,7 @@ public class Main {
     BufferedReader in;
     HashSet<PhoneNumber_Class> mArray = new HashSet<>();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException { 
         _main = new Main();
         _main.processMethod();
     }
