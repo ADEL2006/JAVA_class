@@ -1,14 +1,14 @@
 package Exam02;
 public class PhoneNumber_Class {
     String name;
-    int phonenumber;
+    String phonenumber;
 
     PhoneNumber_Class() {
         name = "";
-        phonenumber = 0;
+        phonenumber = "";
     }
 
-    PhoneNumber_Class(String _name, int _price) {
+    PhoneNumber_Class(String _name, String _price) {
         name = _name;
         phonenumber = _price;
     }

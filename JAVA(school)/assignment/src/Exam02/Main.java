@@ -3,11 +3,13 @@ package Exam02;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.Iterator;
 
 public class Main {
     static Main _main;
     BufferedReader in;
-    PhoneNumber_Class[] mArray = new PhoneNumber_Class[100];
+    HashSet<PhoneNumber_Class> mArray = new HashSet<>();
 
     public static void main(String[] args) throws IOException {
         _main = new Main();
@@ -17,85 +19,75 @@ public class Main {
     private void processMethod() throws IOException {
         init_Value();
         boolean isFinish = false;
-        while(isFinish == false) {
+        while (isFinish == false) {
             isFinish = printMessage();
-
         }
     }
+
     private void init_Value() {
         in = new BufferedReader(new InputStreamReader(System.in));
     }
+
     private boolean printMessage() throws IOException {
         System.out.println("1. 입력");
         System.out.println("2. 출력");
         System.out.println("3. 검색");
         System.out.println("9. 종료");
-        System.out.print("메뉴를 선택하세요: ");
+        System.out.println("메뉴를 선택하세요: ");
         String _menu = in.readLine();
 
-
-        if(_menu.equals("1")){
+        if (_menu.equals("1")) {
             insertMethod();
             return false;
-        }
-        else if(_menu.equals("2")){
+        } else if (_menu.equals("2")) {
             printInfo();
             return false;
-        }
-        else if(_menu.equals("3")){
+        } else if (_menu.equals("3")) {
             searchName();
             return false;
-        }
-        else if(_menu.equals("9")){
-            System.out.println("프로그램이 종료됩니다.");
+        } else if (_menu.equals("9")) {
             return true;
         }
         return false;
     }
+
     private void insertMethod() throws IOException {
         PhoneNumber_Class _temp = new PhoneNumber_Class();
         System.out.println("이름 입력: ");
         _temp.name = in.readLine();
         System.out.println("전화번호 입력: ");
-        _temp.phonenumber = Integer.parseInt(in.readLine());
+        _temp.phonenumber = in.readLine();
 
-        for (int _pos = 0; _pos < mArray.length; _pos++) {
-            if(mArray[_pos] == null) {
-                mArray[_pos] = _temp;
-                break;
-            }
-        }
+        mArray.add(_temp);
     }
 
     private void printInfo() {
         System.out.println("저장된 정보 출력");
-        int cnt = 0;
 
-        for (int _pos = 0; _pos < mArray.length; _pos++) {
-            if(mArray[_pos] != null) {
-                System.out.println("이름: " + mArray[_pos].name + " / 전화 번호: " + mArray[_pos].phonenumber);
-                cnt++;
-            }
+        Iterator _it = mArray.iterator();
+        while (_it.hasNext()) {
+            PhoneNumber_Class _temp = (PhoneNumber_Class) _it.next();
+            System.out.println("이름: " + _temp.name + " / 전화번호: " + _temp.phonenumber);
         }
 
-        System.out.println("총 "+cnt+"개");
     }
 
-    private void searchName() throws IOException{
+    private void searchName() throws IOException {
         System.out.println("검색할 이름 입력: ");
         String _name = in.readLine();
 
         boolean isSearch = false;
 
-        for (int _pos = 0; _pos < mArray.length; _pos++) {
-            if(mArray[_pos] != null) {
-                if(mArray[_pos].name.contains(_name)) {
-                    System.out.println("이름: " + mArray[_pos].name + " / 전화 번호: " + mArray[_pos].phonenumber);
-                    isSearch = true;
-                }
+        Iterator _it = mArray.iterator();
+        while (_it.hasNext()) {
+            PhoneNumber_Class _temp = (PhoneNumber_Class) _it.next();
+            if (_temp.name.contains(_name)) {
+                System.out.println("이름: " + _temp.name + " / 전화번호: " + _temp.phonenumber);
+                isSearch = true;
             }
         }
-        if(isSearch == false) {
+
+        if (isSearch == false) {
             System.out.println("입력한 이름이 없습니다.");
         }
     }
